@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 
@@ -15,6 +16,7 @@ export default function Home() {
   const [quesoTotal, setQuesoTotal] = useState(0);
   const [quesoAcumulado, setQuesoAcumulado] = useState(0);
   const [selectedAmount, setSelectedAmount] = useState(1);
+  const [wldEarned, setWLDEarned] = useState(0);
 
   const wldOptions = [0.15, 0.25, 1, 3, 5, 10, 25, 50];
   const milkByWLD = {
@@ -54,6 +56,13 @@ export default function Home() {
   const handleFermentar = () => {
     setQuesoTotal(prev => prev + quesoAcumulado);
     setQuesoAcumulado(0);
+  };
+
+  const handleSellCheese = () => {
+    const reward = quesoTotal * 0.002; // 0.002 WLD por queso
+    setWLDEarned(prev => prev + reward);
+    setQuesoTotal(0);
+    alert(`Vendiste tu queso y ganaste ${reward.toFixed(4)} WLD`);
   };
 
   // Acumulación pasiva de queso
@@ -110,6 +119,32 @@ export default function Home() {
         </button>
       </div>
 
+      <div style={{
+        backgroundColor: '#fff0e0',
+        padding: '12px',
+        borderRadius: '8px',
+        fontWeight: 'bold',
+        marginBottom: '12px'
+      }}>
+        💰 WLD por venta de queso: {(quesoTotal * 0.002).toFixed(4)} WLD
+        <br />
+        <button
+          onClick={handleSellCheese}
+          disabled={quesoTotal <= 0}
+          style={{
+            marginTop: '8px',
+            padding: '8px',
+            background: quesoTotal > 0 ? '#ff914d' : '#ccc',
+            border: 'none',
+            borderRadius: '8px',
+            fontWeight: 'bold',
+            cursor: quesoTotal > 0 ? 'pointer' : 'not-allowed'
+          }}
+        >
+          Vender Queso
+        </button>
+      </div>
+
       <h3 style={{ marginTop: '20px' }}>🛒 Comprar Leche</h3>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
@@ -162,3 +197,4 @@ export default function Home() {
     </div>
   );
 }
+
