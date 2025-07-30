@@ -83,7 +83,7 @@ export default function Home() {
       margin: '0 auto'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ fontWeight: 'bold' }}>WLD</div>
+        <div style={{ fontWeight: 'bold' }}>Chesse Farm</div>
         <div style={{ fontWeight: 'bold', fontSize: '18px' }}>Balance WLD: {balance}</div>
       </div>
 
